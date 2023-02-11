@@ -1,0 +1,35 @@
+body {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica,
+    Arial, sans-serif;
+  margin: auto;
+}
+
+main {
+  margin: 0 auto;
+}
+
+p, h3 {
+  margin: 0;
+}
+
+.red-glow {
+  box-shadow:
+  inset 0 0 5px #c92a2a,
+  inset 2px 0 8px #f03e3e,
+  inset -2px 0 8px #f03e3e,
+  inset 2px 0 30px #f03e3e,
+  inset -2px 0 30px #f03e3e,
+  0 0 5px #ff8787,
+  -1px 0 8px #ffc9c9;
+}
+
+.green-glow {
+  box-shadow:
+  inset 0 0 5px #087f5b,
+  inset 2px 0 8px #0ca678,
+  inset -2px 0 8px #0ca678,
+  inset 2px 0 30px #0ca678,
+  inset -2px 0 30px #0ca678,
+  0 0 5px #38d9a9,
+  -1px 0 8px #96f2d7;
+}

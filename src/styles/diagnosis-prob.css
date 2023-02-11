@@ -1,0 +1,71 @@
+.probs-container {
+    display: flex;
+    gap: 35px;
+}
+
+.single-prob-container {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+}
+
+.single-prob-container p {
+    text-align: center;
+    margin: 5px 0 0 0;
+    font-weight: 600;
+}
+
+.prob-bar {
+    position: relative;
+    border: 1px solid black;
+    width: 100%;
+    flex: 1;
+    overflow: hidden;
+}
+
+.filled-bar {
+    position: absolute;
+    left: -1px;
+    bottom: -1px;
+    top: -1px;
+    right: -1px;
+    z-index: -1;
+    transform: scaleY(1);
+    transform-origin: bottom;
+    transition: transform 500ms, background-color 500ms;
+}
+
+.th-line {
+    position: absolute;
+    margin: 0;
+    padding: 0;
+    left: 0;
+    right: 0;
+    height: 2px;
+    background-color: black;
+    border: none;
+}
+
+/* DEFINE AXES STYLE */
+.bar-axis {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    border-right: 1px solid #444;
+    margin-bottom: 26px;
+}
+
+.bar-axis-tick {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    gap: 5px;
+    font-size: 13px;
+    font-weight: 600;
+}
+
+.bar-axis-line {
+    height: 1px;
+    width: 10px;
+    background-color: #444;
+}

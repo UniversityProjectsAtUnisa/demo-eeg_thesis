@@ -1,0 +1,75 @@
+{
+  "name": "ecg-arrhythmia-detector",
+  "productName": "ECG Arrhythmia Detector",
+  "version": "1.0.0",
+  "description": "Demo desktop application that shows how the multi-label arrhythmia detection system works.",
+  "main": ".webpack/main",
+  "scripts": {
+    "start": "electron-forge start",
+    "package": "electron-forge package",
+    "make": "electron-forge make",
+    "publish": "electron-forge publish",
+    "lint": "eslint --ext .ts,.tsx .",
+    "webstart": "react-scripts start",
+    "webbuild": "react-scripts build"
+  },
+  "keywords": [],
+  "author": {
+    "name": "OussamaFer97",
+    "email": "oussama5757@gmail.com"
+  },
+  "license": "MIT",
+  "devDependencies": {
+    "@electron-forge/cli": "^6.0.4",
+    "@electron-forge/maker-deb": "^6.0.4",
+    "@electron-forge/maker-rpm": "^6.0.4",
+    "@electron-forge/maker-squirrel": "^6.0.4",
+    "@electron-forge/maker-zip": "^6.0.4",
+    "@electron-forge/plugin-webpack": "^6.0.4",
+    "@types/react": "^18.0.26",
+    "@types/react-dom": "^18.0.10",
+    "@typescript-eslint/eslint-plugin": "^5.0.0",
+    "@typescript-eslint/parser": "^5.0.0",
+    "@vercel/webpack-asset-relocator-loader": "1.7.3",
+    "css-loader": "^6.0.0",
+    "electron": "22.0.0",
+    "eslint": "^8.0.1",
+    "eslint-plugin-import": "^2.25.0",
+    "fork-ts-checker-webpack-plugin": "^7.2.13",
+    "node-loader": "^2.0.0",
+    "style-loader": "^3.0.0",
+    "ts-loader": "^9.2.2",
+    "ts-node": "^10.0.0",
+    "typescript": "~4.5.4"
+  },
+  "dependencies": {
+    "@emotion/react": "^11.10.5",
+    "@heroicons/react": "^2.0.13",
+    "@mantine/core": "^5.10.0",
+    "@mantine/dropzone": "^5.10.0",
+    "@mantine/hooks": "^5.10.0",
+    "@visx/axis": "^3.0.0",
+    "@visx/brush": "^3.0.0",
+    "@visx/pattern": "^3.0.0",
+    "@visx/scale": "^3.0.0",
+    "@visx/shape": "^2.17.0",
+    "electron-squirrel-startup": "^1.0.0",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "react-router-dom": "^6.6.2",
+    "react-scripts": "^5.0.1",
+    "zustand": "^4.3.1"
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  }
+}

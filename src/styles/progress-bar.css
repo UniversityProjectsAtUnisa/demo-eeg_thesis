@@ -1,0 +1,28 @@
+.pb-container {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    margin-top: 20px;
+}
+
+.pb-container > p {
+    font-size: 14px;
+    width: 4ch;
+    text-align: right;
+}
+
+.pb-track {
+    height: 15px;
+    width: 100%;
+    border-radius: 4px;
+    border: 1px solid black;
+}
+
+.pb-thumb {
+    height: 100%;
+    width: 100%;
+    border-radius: 4px;
+    background-color: #099268;
+    transition: transform 0.3s;
+    transform-origin: left;
+}
