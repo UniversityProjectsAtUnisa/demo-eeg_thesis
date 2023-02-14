@@ -1,6 +1,6 @@
 {
-  "name": "ecg-arrhythmia-detector",
-  "productName": "ECG Arrhythmia Detector",
+  "name": "eeg-arrhythmia-detector",
+  "productName": "EEG Arrhythmia Detector",
   "version": "1.0.0",
   "description": "Demo desktop application that shows how the multi-label arrhythmia detection system works.",
   "main": ".webpack/main",
