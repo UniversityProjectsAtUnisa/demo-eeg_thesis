@@ -25,11 +25,11 @@ jobs:
       - name: Install yarn
         run: |
           npm -g install yarn
-      
+
       - name: Install node modules
         run: |
           yarn
-      
+
       - name: Build installable setup
         run: |
           yarn make
@@ -37,7 +37,7 @@ jobs:
       - name: Build portable setup
         run: |
           yarn package
-      
+
       - name: Save Setup file as Artifact
         uses: actions/upload-artifact@v2
         with:

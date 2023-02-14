@@ -1,7 +1,7 @@
-import { create } from 'zustand';
-import { FileWithPath } from '@mantine/dropzone';
-import { DISEASES, SEGMENT_DURATION } from './settings';
-import { normalizeSegments } from './utils';
+import { create } from "zustand";
+import { FileWithPath } from "@mantine/dropzone";
+import { DISEASES, SEGMENT_DURATION } from "./settings";
+import { normalizeSegments } from "./utils";
 
 export interface RawFileData {
   segments: number[][][];
@@ -23,7 +23,7 @@ export interface FileData {
   sampleSegments: Line[][];
   thresholds: number[];
   predictions: number[][];
-  events: Event[]; 
+  events: Event[];
 }
 
 export interface GlobalStoreState {
@@ -37,10 +37,14 @@ const useGlobalStore = create<GlobalStoreState>((set) => ({
     const { segments, predictions, thresholds }: RawFileData = JSON.parse(textData);
 
     const normalizedSegments = await normalizeSegments(segments);
-    const sampleSegments = normalizedSegments.map(seg => seg.map(lead => lead.map((y: number, i: number) => ({
-      x: i,
-      y: -y,
-    }))));
+    const sampleSegments = normalizedSegments.map((seg) =>
+      seg.map((lead) =>
+        lead.map((y: number, i: number) => ({
+          x: i,
+          y: -y,
+        }))
+      )
+    );
 
     const events = findEvents(sampleSegments, predictions, thresholds);
 
@@ -51,37 +55,37 @@ const useGlobalStore = create<GlobalStoreState>((set) => ({
 function findEvents(sampleSegments: Line[][], predictions: number[][], thresholds: number[]) {
   const events: Event[] = [];
   let acc: Line[] = [];
-  let accPred = '';
+  let accPred = "";
   let accStartIndex = 0;
 
   predictions.forEach((predVal, i) => {
-    const pred = DISEASES.filter((d, j) => d !== 'SR' && predVal[j] >= thresholds[j]).join(',');
+    const pred = DISEASES.filter((d, j) => d !== "SR" && predVal[j] >= thresholds[j]).join(",");
     const segment: Line[] = sampleSegments[i];
     if (pred === accPred) {
       acc = acc.map((lead, leadIndex) => {
         const lastX = lead[lead.length - 1].x;
-        const translatedLeadSegment = segment[leadIndex].map(p => ({ ...p, x: p.x + lastX }));
+        const translatedLeadSegment = segment[leadIndex].map((p) => ({ ...p, x: p.x + lastX }));
         return lead.concat(translatedLeadSegment);
       });
     } else {
-      if (accPred !== '') {
+      if (accPred !== "") {
         const startSeconds = accStartIndex * SEGMENT_DURATION;
         const endSeconds = i * SEGMENT_DURATION;
-        events.push({ data: acc, diagnosis: accPred.split(','), startSeconds, endSeconds });
+        events.push({ data: acc, diagnosis: accPred.split(","), startSeconds, endSeconds });
       }
-        
+
       acc = segment;
       accPred = pred;
       accStartIndex = i;
     }
   });
 
-  if (acc.length > 0 && accPred !== '') {
+  if (acc.length > 0 && accPred !== "") {
     const startSeconds = accStartIndex * SEGMENT_DURATION;
     const endSeconds = sampleSegments.length * SEGMENT_DURATION;
-    events.push({ data: acc, diagnosis: accPred.split(','), startSeconds, endSeconds });
+    events.push({ data: acc, diagnosis: accPred.split(","), startSeconds, endSeconds });
   }
-  
+
   return events;
 }
 
