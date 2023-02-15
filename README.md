@@ -1,6 +1,6 @@
-# EEG arrhythmia detection demo
+# EEG seizure prediction demo
 
-Demo desktop application that shows how the multi-label arrhythmia detection system works.
+Demo desktop application that shows how the developed system predicts epileptic seizures on EEG.
 
 ## Description
 
@@ -8,7 +8,7 @@ The application is divided into 3 pages:
 
 - Home page: load EEG recording file
 - Demostrator page: shows the practical behavior of the detection system
-- Event navigation page: select and navigate EEG segments with arrhythmia patterns
+- Event navigation page: select and navigate EEG segments with incoming seizure patterns
 
 The application uses web technologies through Electron. The technologies are:
 
