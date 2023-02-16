@@ -1,10 +1,10 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { Timeline, Text, Group, Affix, ActionIcon } from "@mantine/core";
 import { LinePath } from "@visx/shape";
 import { LEAD_NAMES, PLOT_LINE_COLOR, SAMPLING_RATE, SEGMENT_DURATION, SHAPE_RENDER_TYPE } from "../settings";
 import useGlobalStore, { fileDataSelector, Point, Event } from "../globalState";
-import { HomeIcon } from "@heroicons/react/24/solid";
+import { HomeIcon, ArrowLeftIcon } from "@heroicons/react/24/solid";
 import { formatSeconds } from "../utils";
 import { scaleLinear } from "@visx/scale";
 import { PlotLeadNames, PlotSignalsBaseline, PlotTimeAxis } from "../components";
@@ -51,6 +51,8 @@ const BULLET_STYLE: React.CSSProperties = {
 };
 
 export function DisplayEventsPage() {
+  const location = useLocation();
+  const initialPred = location?.state?.pred;
   const navigate = useNavigate();
   const fileData = useGlobalStore(fileDataSelector);
   const HEIGHT_TRANSLATES = useCallback(
@@ -74,12 +76,9 @@ export function DisplayEventsPage() {
         predGroups.push([predictions[i]]);
       }
     }
-    if (start !== null) {
-      predGroups.push(predictions.slice(start));
-      start = null;
-    } else if (predictions.length === 1) {
-      predGroups.push([predictions[0]]);
-    }
+    predGroups.push(predictions.slice(start ?? predictions.length - 1));
+
+    console.log({ predictions }, { predGroups });
 
     return predGroups.map((predGroup) => {
       const data = predGroup.map((pred) =>
@@ -98,6 +97,14 @@ export function DisplayEventsPage() {
     });
   }, [fileData]);
 
+  const initialIndex = useMemo(
+    () =>
+      !initialPred
+        ? 0
+        : events.findIndex((e) => e.startSeconds <= initialPred * SEGMENT_DURATION && e.endSeconds >= initialPred * SEGMENT_DURATION),
+    [initialPred, events]
+  );
+
   useEffect(() => {
     if (fileData === undefined) navigate("/");
   }, [fileData]);
@@ -105,7 +112,13 @@ export function DisplayEventsPage() {
   if (fileData === undefined) return null;
   return (
     <div style={{ paddingTop: "2rem" }}>
-      <DisplayEventsBody events={events} />
+      <DisplayEventsBody events={events} initialIndex={initialIndex} />
+
+      <Affix position={{ top: 20, right: 20 }}>
+        <ActionIcon variant="filled" color="blue" size="lg" onClick={() => navigate("/demonstrator", { state: { fromLastPage: true } })}>
+          <ArrowLeftIcon width="18" />
+        </ActionIcon>
+      </Affix>
 
       <Affix position={{ bottom: 20, right: 20 }}>
         <ActionIcon variant="filled" color="blue" size="lg" onClick={() => navigate("/")}>
@@ -116,9 +129,9 @@ export function DisplayEventsPage() {
   );
 }
 
-function DisplayEventsBody({ events }: { events: Event[] }) {
+function DisplayEventsBody({ events, initialIndex }: { events: Event[]; initialIndex: number }) {
   const brushRef = useRef<BaseBrush | null>(null);
-  const [activeIndex, setActiveIndex] = useState(0);
+  const [activeIndex, setActiveIndex] = useState(initialIndex);
   const [bounds, setBounds] = useState<[number, number]>([0, BRUSH_INIT_DURATION]);
   const currEvent = useMemo(() => events[activeIndex], [activeIndex]);
   const boundedData = useMemo(() => {

@@ -5,13 +5,14 @@ import useGlobalStore, { fileDataSelector } from "../globalState";
 
 export interface DiagnosisResultModelProps {
   show: boolean;
+  close: () => void;
 }
 
-export function DiagnosisResultModal({ show }: DiagnosisResultModelProps) {
+export function DiagnosisResultModal({ show, close }: DiagnosisResultModelProps) {
   const { predictions } = useGlobalStore(fileDataSelector);
 
   return (
-    <Modal title={<Title>Diagnosis result</Title>} opened={show} size={540} onClose={() => {}} withCloseButton={false}>
+    <Modal title={<Title>Diagnosis result</Title>} opened={show} size={540} onClose={close} withCloseButton={false}>
       {predictions.length > 0 ? <DangerBody /> : <RegularBody />}
     </Modal>
   );

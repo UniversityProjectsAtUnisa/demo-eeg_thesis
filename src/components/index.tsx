@@ -5,3 +5,4 @@ export * from "./DiagnosisResultModal";
 export * from "./ProgressBar";
 export * from "./PlotComponents";
 export * from "./UnisaHeader";
+export * from "./DetectionIndicator";

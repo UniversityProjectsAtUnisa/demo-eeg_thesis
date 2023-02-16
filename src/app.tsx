@@ -1,6 +1,7 @@
 import "./styles/index.css";
 import "./styles/diagnosis-prob.css";
 import "./styles/progress-bar.css";
+import "./styles/detection-indicator.css";
 
 import ReactDOM from "react-dom/client";
 import { RouterProvider, createMemoryRouter } from "react-router-dom";

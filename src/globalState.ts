@@ -34,12 +34,9 @@ const useGlobalStore = create<GlobalStoreState>((set) => ({
 
     const normalizedSegments = await normalizeSegments(data);
 
-    const sampleSegments = normalizedSegments.map((seg, a) =>
-      seg.map((lead, b) =>
+    const sampleSegments = normalizedSegments.map((seg) =>
+      seg.map((lead) =>
         lead.map((y: number, i: number) => {
-          if (isNaN(y)){
-            console.log(`NAN ${a} ${b} ${i}`)
-          }
           return ({
           x: i,
           y: -y,
