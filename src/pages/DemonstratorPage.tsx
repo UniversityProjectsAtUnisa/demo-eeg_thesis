@@ -106,7 +106,13 @@ export function Demonstrator({ eegSegments: eegSegments, predictions }: Demonstr
         </Group>
       </Group>
 
-      <EEGPlotAnimation eegSegments={eegSegments} speed={speed} onComplete={handlers.open} onSegmentComplete={onSegmentComplete} />
+      <EEGPlotAnimation
+        eegSegments={eegSegments}
+        speed={speed}
+        onComplete={handlers.open}
+        onSegmentComplete={onSegmentComplete}
+        completed={completed}
+      />
 
       <ProgressBar progress={progress} predictions={predictions} size={eegSegments.length} />
 

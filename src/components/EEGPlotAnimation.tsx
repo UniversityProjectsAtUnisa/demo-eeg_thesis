@@ -11,6 +11,7 @@ export interface EEGPlotAnimationProps {
   speed: number;
   onSegmentComplete: (i: number) => void;
   onComplete: () => void;
+  completed: boolean;
 }
 
 const WIDTH = 1440;
@@ -25,7 +26,7 @@ const STROKE_WIDTH = 1.2;
 
 const xMaps = [(p: Point) => p.x, (p: Point) => p.x + HALF_WIDTH];
 
-export function EEGPlotAnimation({ eegSegments: rawEegSegments, speed, onSegmentComplete, onComplete }: EEGPlotAnimationProps) {
+export function EEGPlotAnimation({ eegSegments: rawEegSegments, speed, onSegmentComplete, onComplete, completed }: EEGPlotAnimationProps) {
   const [linesArray, setLines] = useState<Line[][][]>([rawEegSegments[0].map(() => [])]);
   const [segIndex, setSegIndex] = useState(0);
   const i = useRef(0);
@@ -68,7 +69,16 @@ export function EEGPlotAnimation({ eegSegments: rawEegSegments, speed, onSegment
     [onComplete, onSegmentComplete, eegSegments]
   );
 
+  const endingLines = useMemo(() => {
+    const leads1 = eegSegments[eegSegments.length - 1].map((lead) => [lead]);
+    const leads2 = eegSegments[eegSegments.length - 2].map((lead) => [lead]);
+    return [leads2, leads1];
+  }, [completed, eegSegments]);
+
   useEffect(() => {
+    if (completed) {
+      setLines(endingLines);
+    }
     if (speed <= 0 || segIndex >= eegSegments.length) return;
 
     const leads = eegSegments[segIndex];
@@ -104,7 +114,7 @@ export function EEGPlotAnimation({ eegSegments: rawEegSegments, speed, onSegment
 
     animationId.current = window.requestAnimationFrame(animStep);
     return () => window.cancelAnimationFrame(animationId.current);
-  }, [eegSegments, segIndex, speed, onSegmentEnd]);
+  }, [eegSegments, segIndex, speed, onSegmentEnd, completed]);
 
   return (
     <div
