@@ -1,8 +1,8 @@
 {
-  "name": "eeg-arrhythmia-detector",
-  "productName": "EEG Arrhythmia Detector",
+  "name": "eeg-seizure-prediction",
+  "productName": "EEG Seizure Prediction",
   "version": "1.0.0",
-  "description": "Demo desktop application that shows how the multi-label arrhythmia detection system works.",
+  "description": "Demo desktop application that shows how the seizure prediction system works.",
   "main": ".webpack/main",
   "scripts": {
     "start": "electron-forge start",

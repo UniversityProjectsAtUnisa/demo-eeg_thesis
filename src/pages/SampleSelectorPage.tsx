@@ -31,7 +31,7 @@ export function SampleSelectorPage() {
 
       <Container size="md">
         <Title style={{ marginBottom: 45 }} mt="xl">
-          EEG arrhythmia detection demo
+          EEG seizure prediction demo
         </Title>
         <Dropzone
           multiple={false}
